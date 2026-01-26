@@ -10,7 +10,7 @@ void setup() {
     Serial.begin(115200);  // Debug output
     mySerial.begin(115200, SERIAL_8N1, 16, -1);  // UART1, RX on GPIO16
 
-    Serial.println("FlySky iBUS Receiver Ready!");
+    Serial.println("FlySky iBUS Receiver Ready (6 Channels)!");
 }
 
 void loop() {
@@ -23,11 +23,14 @@ void loop() {
                 channels[i] = ibusBuffer[2 + i * 2] | (ibusBuffer[3 + i * 2] << 8);
             }
 
-            // Print channel values
+            // Print channel values formatted for Python parsing
+            // Now includes CH5 and CH6
             Serial.print("CH1: "); Serial.print(channels[0]);
             Serial.print(" | CH2: "); Serial.print(channels[1]);
             Serial.print(" | CH3: "); Serial.print(channels[2]);
             Serial.print(" | CH4: "); Serial.print(channels[3]);
+            Serial.print(" | CH5: "); Serial.print(channels[4]); // Aux 1
+            Serial.print(" | CH6: "); Serial.print(channels[5]); // Aux 2
             Serial.println();
         }
     }
